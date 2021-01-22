@@ -1,7 +1,8 @@
 export class Product {
 
+  id: string;
   sku: string;
-  nameee: string;
+  name: string;
   description: string;
   unitPrice: number;
   imgURL: string;

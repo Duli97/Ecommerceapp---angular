@@ -1,0 +1,13 @@
+<div class="menu-sidebar-content js-scrollbar1">
+  <nav class="navbar-sidebar">
+    <ul class="list-unstyled navbar-list">
+      <li *ngFor="let tempPctgry of productCategories">
+        <a routerLink="/category/{{tempPctgry.id}}/{{tempPctgry.categoryName}}" routerLinkActive="active-link"
+          style="text-decoration: none;">{{tempPctgry.categoryName}} </a>
+        <!-- "href" is removed and replace by router link-->
+      </li>
+
+
+    </ul>
+  </nav>
+</div>
