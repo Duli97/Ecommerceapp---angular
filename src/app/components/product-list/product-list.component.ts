@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 import { Product } from 'src/app/common/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProdcutService } from 'src/app/services/prodcut.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class ProductListComponent implements OnInit {
 
 
 
-  constructor(private productService: ProdcutService,  private route: ActivatedRoute) { }
+  constructor(private productService: ProdcutService,  private route: ActivatedRoute, private cartService: CartService) { }
 
   // Similar to @PostConstruct method
   ngOnInit() {
@@ -60,7 +62,7 @@ export class ProductListComponent implements OnInit {
         console.log(`keyword=${theKeyword}, thePageNumber=${this.thePageNumber}`);
 
     // now search for the products using keyword
-    this.productService.searchProductsPaginate(this.thePageNumber-1,this.thePageSize,theKeyword).subscribe(this.processResult);
+    this.productService.searchProductsPaginate(this.thePageNumber-1,this.thePageSize,theKeyword).subscribe(this.processResult());
   }
 
 
@@ -116,6 +118,22 @@ console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.t
      this.thePageSize=pageSize;
      this.thePageNumber=1;
      this.listProducts();
+  }
+
+
+
+
+
+
+
+  addToCart(theProduct: Product){
+    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+
+
+    // Do the real work
+    const theCartItem = new CartItem(theProduct);
+    this.cartService.addToCart(theCartItem);
+
   }
 
 }
